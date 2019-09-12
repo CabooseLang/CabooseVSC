@@ -1,0 +1,30 @@
+{
+    "name": "caboose",
+    "displayName": "Caboose",
+    "description": "Caboose support for VS Code",
+    "publisher": "CabooseLang",
+    "version": "0.0.1-r1",
+    "engines": {
+        "vscode": "^1.37.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "caboose",
+                "aliases": ["Caboose", "caboose"],
+                "extensions": ["cb"],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "caboose",
+                "scopeName": "source.caboose",
+                "path": "./syntaxes/caboose.tmLanguage.json"
+            }
+        ]
+    }
+}

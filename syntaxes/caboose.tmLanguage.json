@@ -1,0 +1,209 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Caboose",
+	"patterns": [
+		{
+			"include": "#classDefinition"
+		},
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#functionDefinition"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#statements"
+		},
+		{
+			"include": "#constants"
+		}
+	],
+	"repository": {
+		"classDefinition": {
+			"begin": "(?=\\bclass\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "\\b(class)\\b\\s+([_[:alpha:]][_[:alnum:]]*)\\s*",
+					"end": "(?=\\{)",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.other.class.caboose"
+						},
+						"1": {
+							"name": "entity.name.class.caboose"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#comment"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#classMembers"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"comment": {
+			"match": "(\\/\\/.*)$",
+			"captures": {
+				"0": {
+					"name": "comment.line.double-slash.caboose"
+				}
+			}
+		},
+		"classMembers": {
+			"patterns": [
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"functionDefinition": {
+			"begin": "\\b(fun)\\b\\s+([_$[:alpha:]][_$[:alnum:]]*)\\s*\\((?=.*)\\)",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.function.caboose"
+				},
+				"1": {
+					"name": "entity.name.function.caboose"
+				}
+			},
+			"end": "(?=\\{)"
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.assignment.compound.caboose",
+					"match": "\\*=|/=|%=|\\+=|-="
+				},
+				{
+					"name": "keyword.operator.comparison.caboose",
+					"match": "==|!="
+				},
+				{
+					"name": "keyword.operator.arithmetic.caboose",
+					"match": "\\+|%|-|/|\\*"
+				},
+				{
+					"name": "keyword.operator.assignment.caboose",
+					"match": "\\="
+				},
+				{
+					"name": "keyword.operator.decrement.caboose",
+					"match": "--"
+				},
+				{
+					"name": "keyword.operator.increment.caboose",
+					"match": "\\+\\+"
+				},
+				{
+					"name": "keyword.operator.logical.caboose",
+					"match": "&&|!|\\|\\|"
+				},
+				{
+					"name": "keyword.operator.relational.caboose",
+					"match": "<|>|<=|>="
+				}
+			]
+		},
+		"statements": {
+			"patterns": [
+				{
+					"include": "#returnStatement"
+				}
+			]
+		},
+		"returnStatement": {
+			"name": "keyword.control.return.caboose",
+			"match": "\\b(return)\\b"
+		},
+		"ifStatement": {
+			"patterns": [
+				{
+					"begin": "\\b(if)\\s*",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.control.if.caboose"
+						}
+					},
+					"end": "(?=;|\\})"
+				},
+				{
+					"include": "#statements"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"include": "#numericConstants"
+				},
+				{
+					"include": "#booleanConstants"
+				},
+				{
+					"include": "#nilConstants"
+				}
+			]
+		},
+		"nilConstants": {
+			"name": "constant.language.caboose",
+			"match": "\\b(nil)\\b"
+		},
+		"booleanConstants": {
+			"name": "constant.language.caboose",
+			"match": "\\b(true|false)\\b"
+		},
+		"numericConstants": {
+			"name": "constant.numeric.caboose",
+			"match": "\\b(\\d+)\\b"
+		},
+		"commaPunctuation": {
+			"name": "punctuation.separator.comma.caboose",
+			"match": ","
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "strings.quoted.double.caboose",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"include": "#escape"
+						}
+					]
+				},
+				{
+					"name": "strings.quoted.single.caboose",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"include": "#escape"
+						}
+					]
+				}
+			]
+		},
+		"escape": {
+			"name": "constant.character.escape.caboose",
+			"match": "\\\\."
+		}
+	},
+	"scopeName": "source.caboose"
+}
